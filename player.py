@@ -12,6 +12,6 @@ class Player(CameraTurtle):
         self.color(color)
         self.player_color = color
         self.shapesize(stretch_wid=PLAYER_SCALE, stretch_len=PLAYER_SCALE)
-        self.cell_idx =(N_CELLS * M_CELLS) - 1
+        self.cell_idx = (N_CELLS * M_CELLS) - 1
         if LOAD_TEXTURES:
             self.shape(PATH_TEXTURES + color + '.gif')

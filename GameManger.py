@@ -105,20 +105,30 @@ class GameManger:
         self.score_board.show(list_of_players, list_of_players_position)
 
     def start_game(self):
+       #to make sure that only one thread of game runs
         if self.game_running:
             print("game is already running")
             return
+
         self.game_running = True
+
+        #select the curunt player
         cur_player = self.players[self.player_idx]
 
+        #focuse camera on player
         CameraTurtle.move_camera(cur_player.xcor(), cur_player.ycor())
         self.update_screen_numbers_and_score_board()
+
+        #make dice animation
         rnd_number_move = 0
         for _ in range(randint(4, 10)):
             rnd_number_move = self.die_roller.roll()
             self.screen.screen.update()
             sleep(SCREEN_UPDATE_RATE + .4)
+
+        #check if the next player movent is valid or not
         if cur_player.cell_idx - rnd_number_move >= 0:
+            #move animation
             for _ in range(rnd_number_move):
                 cur_player.cell_idx -= 1
                 cell = self.grid[cur_player.cell_idx]
@@ -128,18 +138,23 @@ class GameManger:
                 self.screen.screen.update()
                 sleep(SCREEN_UPDATE_RATE + .3)
 
+            #check if player is the winner
             if cur_player.cell_idx == 0:
                 winner = WinnerScreen()
                 winner.show_winner(cur_player.player_color)
                 self.game_running = False
                 return
+            # check if player is on snake or ladder cell
             elif self.grid[cur_player.cell_idx].is_snake_or_ladder:
+                #extract linked cell index
                 target_cell_idx = self.grid[cur_player.cell_idx].linked_to
                 target_cell = self.grid[target_cell_idx]
 
+                #move the cur player to link of the snake or ladder
                 cur_player.cell_idx = target_cell_idx
                 cur_player.goto(target_cell.xcor(), target_cell.ycor())
 
+                # foucse camera on player
                 CameraTurtle.move_camera(cur_player.xcor(), cur_player.ycor())
                 self.update_screen_numbers_and_score_board()
                 self.screen.screen.update()

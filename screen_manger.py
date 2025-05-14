@@ -1,9 +1,7 @@
-import os
-import sys
-from Constants import *
-from Constants import PATH_TEXTURES
 from turtle import Screen
 
+from Constants import *
+from Constants import PATH_TEXTURES
 
 
 class ScreenManger:
@@ -17,8 +15,10 @@ class ScreenManger:
 
     def load_textures(self):
         self.screen.addshape(PATH_TEXTURES + 'red.gif')
+        self.screen.addshape(PATH_TEXTURES + 'red40.gif')
         self.screen.addshape(PATH_TEXTURES + 'green.gif')
+        self.screen.addshape(PATH_TEXTURES + 'green40.gif')
         self.screen.addshape(PATH_TEXTURES + 'gray.gif')
         self.screen.addshape(PATH_TEXTURES + 'ladder.gif')
         self.screen.addshape(PATH_TEXTURES + 'snake.gif')
-        self.screen.bgpic(PATH_TEXTURES+'bg.png')
+        self.screen.bgpic(PATH_TEXTURES + 'bg.png')

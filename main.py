@@ -1,6 +1,8 @@
 from GameManger import GameManger
 from screen_manger import ScreenManger
 
+import turtle
+
 
 def main():
     screen = ScreenManger()
@@ -11,7 +13,3 @@ def main():
     screen.screen.onkeypress(gameManger.start_game, 'space')
     screen.screen.listen()
     screen.screen.mainloop()
-
-
-if __name__ == '__main__':
-    main()
