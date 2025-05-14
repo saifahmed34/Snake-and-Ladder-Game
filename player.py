@@ -3,7 +3,7 @@ from cmaeraTurtle import CameraTurtle
 
 
 class Player(CameraTurtle):
-    def __init__(self, x, y, cell_idx, color):
+    def __init__(self, x, y, color):
         super().__init__(x, y)
         self.shape("square")
         self.penup()
@@ -12,6 +12,6 @@ class Player(CameraTurtle):
         self.color(color)
         self.player_color = color
         self.shapesize(stretch_wid=PLAYER_SCALE, stretch_len=PLAYER_SCALE)
-        self.cell_idx = cell_idx
+        self.cell_idx =(N_CELLS * M_CELLS) - 1
         if LOAD_TEXTURES:
             self.shape(PATH_TEXTURES + color + '.gif')

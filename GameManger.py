@@ -10,28 +10,29 @@ from score_board import ScoreBoard
 from winnerscreen import WinnerScreen
 
 level = {
-    2: 12,    # ladder
-    8: 26,    # ladder
-    19: 38,   # ladder
-    21: 82,   # ladder
-    28: 53,   # ladder
-    36: 57,   # ladder
-    51: 72,   # ladder
-    71: 92,   # ladder
-    78: 98,   # ladder
-    87: 94,   # ladder
+    2: 12,  # ladder
+    8: 26,  # ladder
+    19: 38,  # ladder
+    21: 82,  # ladder
+    28: 53,  # ladder
+    36: 57,  # ladder
+    51: 72,  # ladder
+    71: 92,  # ladder
+    78: 98,  # ladder
+    87: 94,  # ladder
 
-    16: 6,    # snake
-    47: 26,   # snake
-    49: 11,   # snake
-    56: 53,   # snake
-    62: 19,   # snake
-    64: 60,   # snake
-    74: 32,   # snake
-    89: 68,   # snake
-    95: 24,   # snake
-    99: 80    # snake
+    16: 6,  # snake
+    47: 26,  # snake
+    49: 11,  # snake
+    56: 53,  # snake
+    62: 19,  # snake
+    64: 60,  # snake
+    74: 32,  # snake
+    89: 68,  # snake
+    95: 24,  # snake
+    99: 80  # snake
 }
+
 
 class GameManger:
     def __init__(self, screen):
@@ -49,7 +50,7 @@ class GameManger:
         print("set wait player to false")
         self.wait_player_to_press = False
 
-    def draw_cell_number(self):
+    def draw_cell_numbers(self):
         idx = N_CELLS * N_CELLS
         for cell in self.grid:
             cell.write_number(idx)
@@ -75,13 +76,27 @@ class GameManger:
             reverse = not reverse
             x = START_DRAW_X
             y -= PLAYER_SIZE + MARGIN
-        self.draw_cell_number()
+
+        convert_reverse = lambda position: (N_CELLS * M_CELLS) - position - 1
+
+        for cell, cell_connection in level.items():
+            tmp_cell = convert_reverse(cell)
+            tmp_cell_connection = convert_reverse(cell_connection)
+
+            self.grid[tmp_cell].linked_to = tmp_cell_connection
+            if cell < cell_connection:
+                # ladder
+                self.grid[tmp_cell].ladder_shape()
+            else:
+                self.grid[tmp_cell].snake_shape()
+
+        self.draw_cell_numbers()
 
     def add_player(self, player_color):
-        self.players.append(Player(self.grid[-1].xcor(), self.grid[-1].ycor(), (N_CELLS * M_CELLS) - 1, player_color))
+        self.players.append(Player(self.grid[-1].xcor(), self.grid[-1].ycor(), player_color))
 
     def update_screen_numbers_and_score_board(self):
-        self.draw_cell_number()
+        self.draw_cell_numbers()
         list_of_players = []
         list_of_players_position = []
         for player in self.players:
@@ -112,10 +127,22 @@ class GameManger:
                 self.update_screen_numbers_and_score_board()
                 self.screen.screen.update()
                 sleep(SCREEN_UPDATE_RATE + .3)
+
             if cur_player.cell_idx == 0:
                 winner = WinnerScreen()
                 winner.show_winner(cur_player.player_color)
                 self.game_running = False
                 return
+            elif self.grid[cur_player.cell_idx].is_snake_or_ladder:
+                target_cell_idx = self.grid[cur_player.cell_idx].linked_to
+                target_cell = self.grid[target_cell_idx]
+
+                cur_player.cell_idx = target_cell_idx
+                cur_player.goto(target_cell.xcor(), target_cell.ycor())
+
+                CameraTurtle.move_camera(cur_player.xcor(), cur_player.ycor())
+                self.update_screen_numbers_and_score_board()
+                self.screen.screen.update()
+
         self.player_idx = (self.player_idx + 1) % len(self.players)
         self.game_running = False
