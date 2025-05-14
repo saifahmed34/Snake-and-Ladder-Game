@@ -1,5 +1,3 @@
-from Constants import *
-from Constants import LOAD_TEXTURES
 from turtle import Turtle
 
 

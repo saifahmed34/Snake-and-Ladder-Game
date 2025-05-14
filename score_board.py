@@ -14,8 +14,7 @@ class ScoreBoard:
     def show(self, names, positions):
         self.turtle.clear()
         self.turtle.goto(self.x_start, self.y_start)
-        entries = sorted(zip(positions, names))  # [(1, "Alice"), (2, "Bob"), ...]
-
+        entries = sorted(zip(positions, names),reverse=True)
         for i, (position, name) in enumerate(entries):
             display_text = f"{position}. {name}"
             self.turtle.write(display_text, font=("Arial", 16, "bold"))

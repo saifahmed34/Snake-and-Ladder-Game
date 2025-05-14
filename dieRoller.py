@@ -16,7 +16,6 @@ class Dot(CameraTurtle):
 
 
 class DieRoller(CameraTurtle):
-    die_sides = ['one.gif', 'two.gif', 'three.gif', 'four.gif', 'five.gif', 'six.gif']
 
     def __init__(self):
         super().__init__(DIE_X, DIE_Y, follow_camera=False)
