@@ -3,7 +3,7 @@ from cmaeraTurtle import CameraTurtle
 
 
 class Cell(CameraTurtle):
-    def __init__(self, x, y, color):
+    def __init__(self, x, y, color, linked_to=None):
         super().__init__(x, y)
         self.x_cell = x
         self.y_cell = y
@@ -14,7 +14,7 @@ class Cell(CameraTurtle):
         self.shapesize(stretch_wid=Cell_SCALE, stretch_len=Cell_SCALE)
         self.pencolor("black")
         self.cell_number = 0
-
+        self.linked_to = linked_to
         if LOAD_TEXTURES:
             self.shape(PATH_TEXTURES + color + '.gif')
 

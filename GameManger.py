@@ -9,6 +9,29 @@ from player import Player
 from score_board import ScoreBoard
 from winnerscreen import WinnerScreen
 
+level = {
+    2: 12,    # ladder
+    8: 26,    # ladder
+    19: 38,   # ladder
+    21: 82,   # ladder
+    28: 53,   # ladder
+    36: 57,   # ladder
+    51: 72,   # ladder
+    71: 92,   # ladder
+    78: 98,   # ladder
+    87: 94,   # ladder
+
+    16: 6,    # snake
+    47: 26,   # snake
+    49: 11,   # snake
+    56: 53,   # snake
+    62: 19,   # snake
+    64: 60,   # snake
+    74: 32,   # snake
+    89: 68,   # snake
+    95: 24,   # snake
+    99: 80    # snake
+}
 
 class GameManger:
     def __init__(self, screen):

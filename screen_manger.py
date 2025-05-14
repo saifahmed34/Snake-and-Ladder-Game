@@ -19,4 +19,6 @@ class ScreenManger:
         self.screen.addshape(PATH_TEXTURES + 'red.gif')
         self.screen.addshape(PATH_TEXTURES + 'green.gif')
         self.screen.addshape(PATH_TEXTURES + 'gray.gif')
+        self.screen.addshape(PATH_TEXTURES + 'ladder.gif')
+        self.screen.addshape(PATH_TEXTURES + 'snake.gif')
         self.screen.bgpic(PATH_TEXTURES+'bg.png')
