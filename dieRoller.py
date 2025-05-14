@@ -58,3 +58,9 @@ class DieRoller(CameraTurtle):
         rnd = randint(1, 6)
         self.draw_number(rnd)
         return rnd
+
+    def rotate_dice_right(self):
+        self.right(5)
+
+    def rotate_dice_left(self):
+        self.left(5)
