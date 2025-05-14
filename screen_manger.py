@@ -5,13 +5,6 @@ from Constants import PATH_TEXTURES
 from turtle import Screen
 
 
-def resource_path(relative_path):
-    try:
-        base_path = sys._MEIPASS
-    except AttributeError:
-        base_path = os.path.abspath(".")
-    return os.path.join(base_path, relative_path)
-
 
 class ScreenManger:
     def __init__(self):
